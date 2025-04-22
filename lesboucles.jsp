@@ -27,8 +27,7 @@
 
 <h2>Exercice 1 : Le carré d'étoiles</h2>
 <p>Ecrire le code afin de produire un carré d'étoile</p>
-public class Main{
-public static void main (string[]args){
+
 int Val=7;
 for(int i=0;i<Val;i++){
 for(int k=0;k<Val;k++){
