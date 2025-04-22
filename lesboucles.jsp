@@ -32,7 +32,17 @@
 
 <h2>Exercice 2 : Triangle rectangle gauche</h2>
 <p>Ecrire le code afin de produire un triangle rectangle aligné sur la gauche</p>
-<p>Exemple si l'utilisateur saisie le valeur 5</p>
+public class Main{
+public static void main (string[]args){
+int Val=7;
+for(int i=0;i<Val;i++){
+for(int k=0;k<Val;k++){
+System.out.print("*");
+}
+    System.out.println("");}
+ }
+}
+
 <p>*</br>**</br>***</br>****</br>*****</p>
 
 <h2>Exercice 3 : Triangle rectangle inversé</h2>
