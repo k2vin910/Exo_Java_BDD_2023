@@ -33,38 +33,72 @@
 
     
 <h2>Exercice 1 : Combien de 'e' dans notre chaine de charactère ?</h2>
-<p>Ecrire un programme pour compter le nombre de lettre e dans votre chaine de charactères</p>
+<%
+    int compteurE = 0;
+    for (int i = 0; i < chaine.length(); i++) {
+        if (chaine.charAt(i) == 'e' || chaine.charAt(i) == 'E') {
+            compteurE++;
+        }
+    }
+%>
+<p>Le nombre de lettres 'e' dans votre chaine est : <%= compteurE %></p>
 
-<h2>Exercice 2 : Affichage verticale</h2>
-<p>Ecrire le programme pour afficher le texte en vertical</br>
-Exemple : Bonjour</br>
-B</br>
-o</br>
-n</br>
-j</br>
-o</br>
-u</br>
-r</p>
+<h2>Exercice 2 : Affichage vertical</h2>
+<%
+    for (int i = 0; i < chaine.length(); i++) {
+%>
+    <p><%= chaine.charAt(i) %></p>
+<%
+    }
+%>
 
-<h2>Exercice 3 : Retour à la ligne</h2>
-<p>La présence d'un espace provoque un retour à la ligne </br>
-Exemple : L'hiver sera pluvieux</br>
-L'hiver</br>
-sera</br>
-pluvieux</p>
+<h2>Exercice 3 : Retour à la ligne (espace = nouvelle ligne)</h2>
+<%
+    String[] mots = chaine.split(" ");
+    for (int i = 0; i < mots.length; i++) {
+%>
+    <p><%= mots[i] %></p>
+<%
+    }
+%>
 
 <h2>Exercice 4 : Afficher une lettre sur deux</h2>
-<p>Ecrire le programme pour afficher seulement une lettre sur deux de votre texte </br>
-Exemple : L'hiver sera pluvieux</br>
-Lhvrsr lvex</p>
+<%
+    StringBuilder uneLettreSurDeux = new StringBuilder();
+    for (int i = 0; i < chaine.length(); i += 2) {
+        uneLettreSurDeux.append(chaine.charAt(i));
+    }
+%>
+<p>Texte avec une lettre sur deux : <%= uneLettreSurDeux.toString() %></p>
 
 <h2>Exercice 5 : La phrase en verlant</h2>
-<p>Ecrire le programme afin d'afficher le texte en verlant </br>
-Exemple : L'hiver sera pluvieux</br>
-xueivulp ares revih'l</p>
+<%
+    StringBuilder verlant = new StringBuilder(chaine);
+    verlant.reverse();
+%>
+<p>Votre texte en verlant : <%= verlant.toString() %></p>
 
 <h2>Exercice 6 : Consonnes et voyelles</h2>
-<p>Ecrire le programme afin de compter les consonnes et les voyelles dans votre texte</p>
+<%
+    int voyelles = 0;
+    int consonnes = 0;
+    String voyellesStr = "aeiouyAEIOUY";
+
+    for (int i = 0; i < chaine.length(); i++) {
+        char c = chaine.charAt(i);
+        if (Character.isLetter(c)) {
+            if (voyellesStr.indexOf(c) != -1) {
+                voyelles++;
+            } else {
+                consonnes++;
+            }
+        }
+    }
+%>
+<p>Nombre de voyelles : <%= voyelles %></p>
+<p>Nombre de consonnes : <%= consonnes %></p>
+
+<!-- ======================= Fin Exercices ============================ -->
 
 <% } %>
 <p><a href="index.html">Retour au sommaire</a></p>
