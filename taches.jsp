@@ -1,6 +1,6 @@
 <%@ page contentType="text/html" pageEncoding="UTF-8" %>
-<%@ page import="java.util.ArrayList" %>
-<%@ page import="your.package.Task" %>  <!-- Si Task est dans un package, remplace "your.package" par le bon package -->
+<%@ page import="java.util.ArrayList" %> <!-- Importation de ArrayList -->
+<%@ page import="com.example.Task" %> <!-- Importation de la classe Task (si elle est dans un package) -->
 
 <html>
 <head>
@@ -18,7 +18,8 @@
     <input type="submit" value="Enregistrer">
 </form>
 
-<%! 
+<%!
+    // Définition de la classe Task à l'intérieur de la section déclarative
     class Task {
         String title;
         String description;
