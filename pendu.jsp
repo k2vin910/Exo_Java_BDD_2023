@@ -1,142 +1,186 @@
-import java.util.*;
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import="java.util.Random, java.util.ArrayList, java.util.Arrays" %>
 
-public class Pendu {
-    // --- Partie JeuPendu ---
-    private String motADeviner;
-    private Set<Character> lettresTrouvees;
-    private Set<Character> lettresProposees;
-    private int essaisRestants;
-    private static final int ESSAIS_MAX = 6;
-    private static final String[] LISTE_MOTS = {
-        "ordinateur", "programmation", "developpement", "java", "interface",
-        "serveur", "algorithme", "reseau", "variable", "compilation"
-    };
-
-    public Pendu() {
-        Random rand = new Random();
-        this.motADeviner = LISTE_MOTS[rand.nextInt(LISTE_MOTS.length)].toUpperCase();
-        this.lettresTrouvees = new HashSet<>();
-        this.lettresProposees = new HashSet<>();
-        this.essaisRestants = ESSAIS_MAX;
-    }
-
-    public boolean proposerLettre(char lettre) {
-        lettre = Character.toUpperCase(lettre);
-        if (lettresProposees.contains(lettre)) {
-            System.out.println("Vous avez déjà proposé cette lettre !");
-            return false;
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Jeu du Pendu</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
         }
-
-        lettresProposees.add(lettre);
-
-        if (motADeviner.indexOf(lettre) >= 0) {
-            lettresTrouvees.add(lettre);
-            return true;
-        } else {
-            essaisRestants--;
-            return false;
+        .game-container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
         }
-    }
-
-    public boolean estGagne() {
-        for (char c : motADeviner.toCharArray()) {
-            if (!lettresTrouvees.contains(c)) {
-                return false;
-            }
+        .word-display {
+            font-size: 24px;
+            letter-spacing: 5px;
+            margin: 20px 0;
         }
-        return true;
-    }
-
-    public boolean estPerdu() {
-        return essaisRestants <= 0;
-    }
-
-    public void afficherMot() {
-        for (char c : motADeviner.toCharArray()) {
-            if (lettresTrouvees.contains(c)) {
-                System.out.print(c + " ");
-            } else {
-                System.out.print("_ ");
-            }
+        .hangman {
+            white-space: pre;
+            font-family: monospace;
+            margin: 20px 0;
         }
-        System.out.println();
-    }
-
-    public void afficherEtat() {
-        afficherMot();
-        System.out.println("Lettres proposées : " + lettresProposees);
-        System.out.println("Essais restants : " + essaisRestants);
-        afficherPendu();
-    }
-
-    private void afficherPendu() {
-        int etat = ESSAIS_MAX - essaisRestants;
-        switch (etat) {
-            case 1:
-                System.out.println("  O");
-                break;
-            case 2:
-                System.out.println("  O\n  |");
-                break;
-            case 3:
-                System.out.println("  O\n /|");
-                break;
-            case 4:
-                System.out.println("  O\n /|\\");
-                break;
-            case 5:
-                System.out.println("  O\n /|\\\n /");
-                break;
-            case 6:
-                System.out.println("  O\n /|\\\n / \\");
-                break;
-            default:
-                System.out.println();
+        .letter-input {
+            font-size: 20px;
+            width: 50px;
+            text-align: center;
+            text-transform: uppercase;
         }
-    }
-
-    public String getMotADeviner() {
-        return motADeviner;
-    }
-
-    // --- Partie Main ---
-    public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        boolean rejouer = true;
-
-        System.out.println("Bienvenue dans le jeu du Pendu !");
-
-        while (rejouer) {
-            Pendu jeu = new Pendu();
-
-            while (!jeu.estGagne() && !jeu.estPerdu()) {
-                jeu.afficherEtat();
-                System.out.print("Proposez une lettre : ");
-                String entree = scanner.nextLine();
-
-                if (entree.length() != 1 || !Character.isLetter(entree.charAt(0))) {
-                    System.out.println("Veuillez entrer UNE seule lettre !");
-                    continue;
+        .message {
+            font-weight: bold;
+            margin: 10px 0;
+            min-height: 24px;
+        }
+        .guessed-letters {
+            margin: 10px 0;
+        }
+        .restart-btn {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .restart-btn:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <div class="game-container">
+        <h1>Jeu du Pendu</h1>
+        
+        <%
+        // Initialisation des variables de jeu
+        String[] mots = {"JAVA", "JSP", "SERVLET", "TOMCAT", "HTML", "CSS", "JAVASCRIPT", "MYSQL", "ECLIPSE", "GITHUB"};
+        String motSecret = (String) session.getAttribute("motSecret");
+        char[] motMasque = (char[]) session.getAttribute("motMasque");
+        Integer essaisRestants = (Integer) session.getAttribute("essaisRestants");
+        ArrayList<Character> lettresProposees = (ArrayList<Character>) session.getAttribute("lettresProposees");
+        String message = "";
+        boolean partieTerminee = false;
+        
+        // Initialiser une nouvelle partie si nécessaire
+        if (motSecret == null || "true".equals(request.getParameter("nouvellePartie"))) {
+            motSecret = mots[new Random().nextInt(mots.length)];
+            motMasque = new char[motSecret.length()];
+            Arrays.fill(motMasque, '_');
+            essaisRestants = 6;
+            lettresProposees = new ArrayList<Character>();
+            
+            session.setAttribute("motSecret", motSecret);
+            session.setAttribute("motMasque", motMasque);
+            session.setAttribute("essaisRestants", essaisRestants);
+            session.setAttribute("lettresProposees", lettresProposees);
+        }
+        
+        // Traitement d'une proposition de lettre
+        if (request.getParameter("lettre") != null && !partieTerminee) {
+            String lettreParam = request.getParameter("lettre").toUpperCase();
+            if (lettreParam.length() == 1) {
+                char lettre = lettreParam.charAt(0);
+                
+                if (lettresProposees.contains(lettre)) {
+                    message = "Vous avez déjà proposé cette lettre !";
+                } else {
+                    lettresProposees.add(lettre);
+                    boolean lettreTrouvee = false;
+                    
+                    for (int i = 0; i < motSecret.length(); i++) {
+                        if (motSecret.charAt(i) == lettre) {
+                            motMasque[i] = lettre;
+                            lettreTrouvee = true;
+                        }
+                    }
+                    
+                    if (!lettreTrouvee) {
+                        essaisRestants--;
+                        message = "La lettre " + lettre + " n'est pas dans le mot !";
+                    } else {
+                        message = "Bien joué ! La lettre " + lettre + " est dans le mot.";
+                    }
+                    
+                    // Mettre à jour les attributs de session
+                    session.setAttribute("motMasque", motMasque);
+                    session.setAttribute("essaisRestants", essaisRestants);
+                    session.setAttribute("lettresProposees", lettresProposees);
                 }
-
-                jeu.proposerLettre(entree.charAt(0));
-            }
-
-            if (jeu.estGagne()) {
-                System.out.println("Félicitations ! Vous avez deviné le mot : " + jeu.getMotADeviner());
-            } else {
-                System.out.println("Dommage ! Le mot était : " + jeu.getMotADeviner());
-            }
-
-            System.out.print("Voulez-vous rejouer ? (o/n) : ");
-            String reponse = scanner.nextLine();
-            if (!reponse.equalsIgnoreCase("o")) {
-                rejouer = false;
             }
         }
-
-        System.out.println("Merci d'avoir joué !");
-        scanner.close();
-    }
-}
-
+        
+        // Vérifier si la partie est terminée
+        if (new String(motMasque).equals(motSecret)) {
+            message = "Félicitations ! Vous avez trouvé le mot : " + motSecret;
+            partieTerminee = true;
+        } else if (essaisRestants <= 0) {
+            message = "Désolé, vous avez perdu ! Le mot était : " + motSecret;
+            partieTerminee = true;
+        }
+        %>
+        
+        <!-- Affichage du pendu -->
+        <div class="hangman">
+            <%
+            String[] pendu = {
+                "  __\n |    |\n |    O\n |   /|\\\n |   / \\\n|",
+                "  __\n |    |\n |    O\n |   /|\\\n |   /\n|",
+                "  __\n |    |\n |    O\n |   /|\\\n |\n|",
+                "  __\n |    |\n |    O\n |   /|\n |\n|",
+                "  __\n |    |\n |    O\n |    |\n |\n|",
+                "  __\n |    |\n |    O\n |\n |\n|",
+                "  __\n |    |\n |\n |\n |\n|"
+            };
+            out.println("<pre>" + pendu[6 - essaisRestants] + "</pre>");
+            %>
+        </div>
+        
+        <!-- Affichage du mot masqué -->
+        <div class="word-display">
+            <%
+            for (char c : motMasque) {
+                out.print(c + " ");
+            }
+            %>
+        </div>
+        
+        <!-- Affichage des informations de jeu -->
+        <div class="message"><%= message %></div>
+        <div class="guessed-letters">
+            Lettres proposées: 
+            <%
+            for (char c : lettresProposees) {
+                out.print(c + " ");
+            }
+            %>
+        </div>
+        <div>Essais restants: <%= essaisRestants %></div>
+        
+        <!-- Formulaire de proposition de lettre -->
+        <% if (!partieTerminee) { %>
+        <form method="post">
+            <label for="lettre">Proposez une lettre :</label>
+            <input type="text" id="lettre" name="lettre" class="letter-input" maxlength="1" required 
+                   pattern="[A-Za-z]" title="Veuillez entrer une seule lettre">
+            <button type="submit">Essayer</button>
+        </form>
+        <% } %>
+        
+        <!-- Bouton pour une nouvelle partie -->
+        <form method="post">
+            <input type="hidden" name="nouvellePartie" value="true">
+            <button type="submit" class="restart-btn">Nouvelle partie</button>
+        </form>
+    </div>
+</body>
+</html>
