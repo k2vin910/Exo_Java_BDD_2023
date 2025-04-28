@@ -28,13 +28,11 @@
 <h2>Exercice 1 : Le carré d'étoiles</h2>
 <p>Ecrire le code afin de produire un carré d'étoile</p>
 
-<%int Val=7;
-for(int i=0;i<Val;i++){
-for(int k=0;k<Val;k++){
-System.out.print("*");
-}
-    System.out.println("");}
- }
+<%int Val=7;%>
+for(int i=0;i<Val;i++){%>
+for(int k=0;k<Val;k++){%>
+System.out.print("*");}%>
+    System.out.println("");}}%>
 }%>
 
 <p>*****</br>*****</br>*****</br>*****</br>*****</p>
