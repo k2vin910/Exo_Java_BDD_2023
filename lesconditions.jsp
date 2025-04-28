@@ -35,6 +35,7 @@
 A, B et C et dites nous si la valeur de C est comprise entre A et B.</br>
 
 <%
+    // Vérification de la valeur3
     if (valeur1 != null && !valeur1.isEmpty() && valeur2 != null && !valeur2.isEmpty() && valeur3 != null && !valeur3.isEmpty()) {
         int A = Integer.parseInt(valeur1);
         int B = Integer.parseInt(valeur2);
