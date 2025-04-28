@@ -33,16 +33,44 @@
 <h2>Exercice 1 : Comparaison 1</h2>
 <p>Ecrire un programme qui demande à l'utilisateur de saisir 3 valeurs (des chiffres),</br>
 A, B et C et dites nous si la valeur de C est comprise entre A et B.</br>
-Exemple :</br>
-A = 10</br>
-B = 20</br>
-C = 15</br>
-Oui C est compris entre A et B</p>
+
+<%
+    if (valeur1 != null && !valeur1.isEmpty() && valeur2 != null && !valeur2.isEmpty() && valeur3 != null && !valeur3.isEmpty()) {
+        int A = Integer.parseInt(valeur1);
+        int B = Integer.parseInt(valeur2);
+        int C = Integer.parseInt(valeur3);
+
+        if ((C >= A && C <= B) || (C >= B && C <= A)) {
+%>
+            <p>Oui, C (= <%= C %>) est compris entre A (= <%= A %>) et B (= <%= B %>).</p>
+<%
+        } else {
+%>
+            <p>Non, C (= <%= C %>) n'est pas compris entre A (= <%= A %>) et B (= <%= B %>).</p>
+<%
+        }
+    }
+%>
 
 <h2>Exercice 2 : Pair ou Impair ?</h2>
 <p>Écrivez un programme pour vérifier si un nombre est pair ou impair en utilisant une structure if</p>
 
-<% } %>
+<%
+    if (valeur3 != null && !valeur3.isEmpty()) {
+        int nombre = Integer.parseInt(valeur3);
+
+        if (nombre % 2 == 0) {
+%>
+            <p>Le nombre <%= nombre %> est pair.</p>
+<%
+        } else {
+%>
+            <p>Le nombre <%= nombre %> est impair.</p>
+<%
+        }
+    }
+%>
+
 <p><a href="index.html">Retour au sommaire</a></p>
 </body>
 </html>
