@@ -29,11 +29,11 @@
 <p>Ecrire le code afin de produire un carré d'étoile</p>
 
 <%int Val=7;%>
-for(int i=0;i<Val;i++){%>
-for(int k=0;k<Val;k++){%>
-System.out.print("*");}%>
-    System.out.println("");}}%>
-}%>
+<%for(int i=0;i<Val;i++){%>
+<%for(int k=0;k<Val;k++){%>
+<%System.out.print("*");}%>
+<%    System.out.println("");}}%>
+<%}%>
 
 <p>*****</br>*****</br>*****</br>*****</br>*****</p>
 
