@@ -1,4 +1,6 @@
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ page contentType="text/html" pageEncoding="UTF-8" %>
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="your.package.Task" %>  <!-- Si Task est dans un package, remplace "your.package" par le bon package -->
 
 <html>
 <head>
@@ -31,22 +33,27 @@
 %>
 
 <%
+    // Récupérer les données soumises par le formulaire
     String titre = request.getParameter("titre");
     String description = request.getParameter("description");
     String dueDate = request.getParameter("dueDate");
 
+    // Si une tâche a été ajoutée, on la stocke dans la session
     if (titre != null && !titre.isEmpty() && description != null && !description.isEmpty() && dueDate != null) {
         Task newTask = new Task(titre, description, dueDate);
-
+        
+        // Récupérer la liste des tâches depuis la session
         ArrayList<Task> tasks = (ArrayList<Task>) session.getAttribute("tasks");
         if (tasks == null) {
             tasks = new ArrayList<>();
             session.setAttribute("tasks", tasks);
         }
 
+        // Ajouter la nouvelle tâche à la liste
         tasks.add(newTask);
     }
 
+    // Afficher toutes les tâches stockées
     ArrayList<Task> tasks = (ArrayList<Task>) session.getAttribute("tasks");
     if (tasks != null && !tasks.isEmpty()) {
 %>
