@@ -27,24 +27,39 @@
 
 <h2>Exercice 1 : Le carré d'étoiles</h2>
 <p>Ecrire le code afin de produire un carré d'étoile</p>
-
-<%int Val=7;%>
-<%for(int i=0;i<Val;i++){%>
-<%for(int k=0;k<Val;k++){%>
-<%System.out.print("*");}%>
-<%    System.out.println("");}}%>
-<%}%>
+<% 
+for (int i = 0; i < cpt; i++) { 
+%>
+    <% for (int j = 0; j < cpt; j++) { %>
+        *
+    <% } %><br>
+<% } %>
 
 <p>*****</br>*****</br>*****</br>*****</br>*****</p>
 
 <h2>Exercice 2 : Triangle rectangle gauche</h2>
 <p>Ecrire le code afin de produire un triangle rectangle aligné sur la gauche</p>
 
+<% 
+for (int i = 1; i <= cpt; i++) { 
+%>
+    <% for (int j = 1; j <= i; j++) { %>
+        *
+    <% } %><br>
+<% } %>
 <p>*</br>**</br>***</br>****</br>*****</p>
 
 <h2>Exercice 3 : Triangle rectangle inversé</h2>
 <p>Ecrire le code afin de produire un triangle rectangle aligné sur la gauche</p>
 <p>Exemple si l'utilisateur saisie le valeur 5</p>
+
+<% 
+for (int i = cpt; i >= 1; i--) { 
+%>
+    <% for (int j = 1; j <= i; j++) { %>
+        *
+    <% } %><br>
+<% } %>
 <p>*****</br>****</br>***</br>**</br>*</p>
 
 <h2>Exercice 4 : Triangle rectangle 2</h2>
