@@ -1,33 +1,45 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%
+    // Déclaration GLOBALE des variables
+    String valeur1 = request.getParameter("valeur1");
+    String valeur2 = request.getParameter("valeur2");
+    String valeur3 = request.getParameter("valeur3");
+%>
 <html>
 <head>
-<title>les conditions</title>
+<title>Les conditions</title>
 </head>
-<body bgcolor=white>
+<body bgcolor="white">
 <h1>Exercices sur les conditions</h1>
-<form action="#" method="post">
-    <p>Saisir la valeur 1 : <input type="text" id="inputValeur" name="valeur1">
-    <p>Saisir la valeur 2 : <input type="text" id="inputValeur" name="valeur2">
-    <p><input type="submit" value="Afficher">
-</form>
-<%-- Récupération des valeurs --%>
-    <% String valeur1 = request.getParameter("valeur1"); %>
-    <% String valeur2 = request.getParameter("valeur2"); %>
 
-    <%-- Vérification de la condition entre les deux valeurs --%>
-    <% if (valeur1 != null && valeur2 != null) { %>
-        <%-- Conversion des valeurs en entiers pour la comparaison --%>
-        <% int intValeur1 = Integer.parseInt(valeur1); %>
-        <% int intValeur2 = Integer.parseInt(valeur2); %>
-        
-        <%-- Condition if pour comparer les valeurs --%>
-        <% if (intValeur1 > intValeur2) { %>
+<form action="#" method="post">
+    <p>Saisir la valeur 1 : <input type="text" id="inputValeur1" name="valeur1"></p>
+    <p>Saisir la valeur 2 : <input type="text" id="inputValeur2" name="valeur2"></p>
+    <p>Saisir la valeur 3 (pour exercice 1 et 2) : <input type="text" id="inputValeur3" name="valeur3"></p>
+    <p><input type="submit" value="Afficher"></p>
+</form>
+
+<%
+    // Comparaison entre valeur1 et valeur2
+    if (valeur1 != null && !valeur1.isEmpty() && valeur2 != null && !valeur2.isEmpty()) {
+        int intValeur1 = Integer.parseInt(valeur1);
+        int intValeur2 = Integer.parseInt(valeur2);
+
+        if (intValeur1 > intValeur2) {
+%>
             <p>Valeur 1 est supérieure à Valeur 2.</p>
-        <% } else if (intValeur1 < intValeur2) { %>
+<%
+        } else if (intValeur1 < intValeur2) {
+%>
             <p>Valeur 1 est inférieure à Valeur 2.</p>
-        <% } else { %>
+<%
+        } else {
+%>
             <p>Valeur 1 est égale à Valeur 2.</p>
-        <% } %>
+<%
+        }
+    }
+%>
    
     
 <h2>Exercice 1 : Comparaison 1</h2>
