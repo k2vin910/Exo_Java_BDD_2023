@@ -94,7 +94,6 @@
 %>
 <p>La valeur la plus proche de 0 (version avec préférence pour le positif) est : <%= procheDeZero2 %></p>
 
-<!-- ======================= Fin Exercices ============================ -->
 
 <% } %>
 <p><a href="index.html">Retour au sommaire</a></p>
