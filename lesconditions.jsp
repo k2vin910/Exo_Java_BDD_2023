@@ -35,7 +35,15 @@
 A, B et C et dites nous si la valeur de C est comprise entre A et B.</br>
 
 <%
-    // Vérification de la valeur3
+    String valeur3 = request.getParameter("valeur3"); // ➔ ajouter ici juste pour les exercices
+%>
+
+<form action="#" method="post">
+    <p>Saisir la valeur 3 : <input type="text" id="inputValeur3" name="valeur3"></p>
+    <p><input type="submit" value="Vérifier"></p>
+</form>
+
+<%
     if (valeur1 != null && !valeur1.isEmpty() && valeur2 != null && !valeur2.isEmpty() && valeur3 != null && !valeur3.isEmpty()) {
         int A = Integer.parseInt(valeur1);
         int B = Integer.parseInt(valeur2);
@@ -43,11 +51,11 @@ A, B et C et dites nous si la valeur de C est comprise entre A et B.</br>
 
         if ((C >= A && C <= B) || (C >= B && C <= A)) {
 %>
-            <p>Oui, C (= <%= C %>) est compris entre A (= <%= A %>) et B (= <%= B %>).</p>
+            <p>Oui, C est compris entre A et B.</p>
 <%
         } else {
 %>
-            <p>Non, C (= <%= C %>) n'est pas compris entre A (= <%= A %>) et B (= <%= B %>).</p>
+            <p>Non, C n'est pas compris entre A et B.</p>
 <%
         }
     }
@@ -70,7 +78,7 @@ A, B et C et dites nous si la valeur de C est comprise entre A et B.</br>
 <%
         }
     }
-%>
+%>>
 
 <p><a href="index.html">Retour au sommaire</a></p>
 </body>
