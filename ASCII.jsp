@@ -38,7 +38,7 @@
     </style>
 </head>
 <body>
-    <h1>ASCII Art Generator</h1>
+    <h1>ASCII Art </h1>
 
     <form method="post">
         <label for="inputText">Entrez un mot :</label>
