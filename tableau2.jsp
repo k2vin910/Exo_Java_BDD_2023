@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Tableau Interactif - Dark Theme</title>
+    <title>Tableau</title>
     <style>
         body {
             margin: 0;
@@ -94,7 +94,7 @@
 </head>
 <body>
 
-<h1>Interactive Word/Number Table</h1>
+<h1>Tableau</h1>
 
 <%
     ArrayList<String> tableau = (ArrayList<String>) session.getAttribute("tableau");
