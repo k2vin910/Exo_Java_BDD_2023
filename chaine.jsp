@@ -2,58 +2,93 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Fun stuff</title>
+    <title>String Formatter - Dark Theme</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            background: #f4f4f4;
-            padding: 40px;
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #0d0d0d;
+            color: #f0f0f0;
             display: flex;
             flex-direction: column;
             align-items: center;
+            padding: 40px;
         }
+
         h1 {
-            color: #333;
+            color: #ffffff;
+            font-size: 2.5em;
+            text-shadow: 0 0 8px #00ffff;
+            margin-bottom: 30px;
         }
+
         form {
-            margin-bottom: 20px;
+            display: flex;
+            justify-content: center;
+            margin-bottom: 30px;
         }
+
         input[type="text"] {
-            padding: 10px;
+            padding: 12px;
+            width: 320px;
             font-size: 16px;
-            width: 300px;
-            border: 1px solid #ccc;
-            border-radius: 6px;
-        }
-        input[type="submit"] {
-            padding: 10px 16px;
-            font-size: 16px;
-            background-color: #4CAF50;
-            color: white;
             border: none;
             border-radius: 6px;
-            cursor: pointer;
+            background-color: #1a1a1a;
+            color: #fff;
+            outline: none;
+            box-shadow: 0 0 6px #555;
+        }
+
+        input[type="text"]::placeholder {
+            color: #888;
+        }
+
+        input[type="submit"] {
+            padding: 12px 20px;
+            font-size: 16px;
+            background: linear-gradient(90deg, #00ffff, #8a2be2);
+            color: #0d0d0d;
+            font-weight: bold;
+            border: none;
+            border-radius: 6px;
             margin-left: 10px;
+            cursor: pointer;
+            transition: 0.3s ease;
+            box-shadow: 0 0 8px #00ffff;
         }
+
+        input[type="submit"]:hover {
+            box-shadow: 0 0 12px #00ffff;
+            transform: scale(1.05);
+        }
+
         .result {
-            background: white;
-            padding: 20px;
+            background-color: #1a1a1a;
+            padding: 30px;
             border-radius: 10px;
-            width: 400px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            width: 450px;
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
         }
+
         .result p {
             font-size: 18px;
-            margin: 10px 0;
+            margin: 12px 0;
+            color: #fff;
+        }
+
+        .label {
+            color: #8a2be2;
+            font-weight: bold;
         }
     </style>
 </head>
 <body>
 
-<h1>Fun stuff</h1>
+<h1>String Formatter</h1>
 
 <form method="get" action="chaine.jsp">
-    <input type="text" name="inputText" placeholder="Enter your string here" required>
+    <input type="text" name="inputText" placeholder="Type your text..." required>
     <input type="submit" value="Format">
 </form>
 
@@ -65,9 +100,9 @@
 %>
 
 <div class="result">
-    <p><strong>Original:</strong> <%= input %></p>
-    <p><strong>Uppercase:</strong> <%= uppercase %></p>
-    <p><strong>Capitalized:</strong> <%= capitalized %></p>
+    <p><span class="label">Original:</span> <%= input %></p>
+    <p><span class="label">Uppercase:</span> <%= uppercase %></p>
+    <p><span class="label">Capitalized:</span> <%= capitalized %></p>
 </div>
 
 <%
