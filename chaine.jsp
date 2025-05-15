@@ -50,7 +50,7 @@
 </head>
 <body>
 
-<h1>String Formatter</h1>
+<h1>Fun stuff</h1>
 
 <form method="get" action="chaine.jsp">
     <input type="text" name="inputText" placeholder="Enter your string here" required>
