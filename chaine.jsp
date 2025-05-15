@@ -2,32 +2,41 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>String Manipulation</title>
-</head>
-<body>
-
-<%
-    // Original string
-    String bonjour = "salut la compagnie";
-
-    // Convert to uppercase
-    String bonjourMajuscules = bonjour.toUpperCase();
-
-    // Capitalize only the first letter (manual logic)
-    String bonjourCapitalise = "";
-    if (bonjour != null && bonjour.length() > 0) {
-        bonjourCapitalise = bonjour.substring(0, 1).toUpperCase() + bonjour.substring(1);
-    }
-%>
-
-<h2>Original message:</h2>
-<p><%= bonjour %></p>
-
-<h2>Uppercase message:</h2>
-<p><%= bonjourMajuscules %></p>
-
-<h2>Capitalized first letter only:</h2>
-<p><%= bonjourCapitalise %></p>
-
-</body>
-</html>
+    <title>String Formatter</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f4f4;
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        h1 {
+            color: #333;
+        }
+        form {
+            margin-bottom: 20px;
+        }
+        input[type="text"] {
+            padding: 10px;
+            font-size: 16px;
+            width: 300px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+        }
+        input[type="submit"] {
+            padding: 10px 16px;
+            font-size: 16px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            margin-left: 10px;
+        }
+        .result {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            width: 400px;
