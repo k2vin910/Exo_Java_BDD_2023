@@ -40,3 +40,39 @@
             padding: 20px;
             border-radius: 10px;
             width: 400px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .result p {
+            font-size: 18px;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+
+<h1>String Formatter</h1>
+
+<form method="get" action="chaine.jsp">
+    <input type="text" name="inputText" placeholder="Enter your string here" required>
+    <input type="submit" value="Format">
+</form>
+
+<%
+    String input = request.getParameter("inputText");
+    if (input != null && !input.trim().isEmpty()) {
+        String uppercase = input.toUpperCase();
+        String capitalized = input.substring(0, 1).toUpperCase() + input.substring(1);
+%>
+
+<div class="result">
+    <p><strong>Original:</strong> <%= input %></p>
+    <p><strong>Uppercase:</strong> <%= uppercase %></p>
+    <p><strong>Capitalized:</strong> <%= capitalized %></p>
+</div>
+
+<%
+    }
+%>
+
+</body>
+</html>
