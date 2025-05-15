@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>String Formatter</title>
+    <title>Fun stuff</title>
     <style>
         body {
             font-family: Arial, sans-serif;
