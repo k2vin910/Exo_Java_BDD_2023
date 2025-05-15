@@ -2,34 +2,31 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Manipulation de chaîne</title>
+    <title>String Manipulation</title>
 </head>
 <body>
 
 <%
-    // Déclaration de la chaîne
+    // Original string
     String bonjour = "salut la compagnie";
 
-    // Conversion en majuscules
+    // Convert to uppercase
     String bonjourMajuscules = bonjour.toUpperCase();
 
-    // Fonction pour mettre juste la première lettre en majuscule
-    String capitalizeFirstLetter(String s) {
-        if (s == null || s.length() == 0) return s;
-        return s.substring(0, 1).toUpperCase() + s.substring(1);
+    // Capitalize only the first letter (manual logic)
+    String bonjourCapitalise = "";
+    if (bonjour != null && bonjour.length() > 0) {
+        bonjourCapitalise = bonjour.substring(0, 1).toUpperCase() + bonjour.substring(1);
     }
-
-    // Appel de la méthode personnalisée
-    String bonjourCapitalise = capitalizeFirstLetter(bonjour);
 %>
 
-<h2>Message original :</h2>
+<h2>Original message:</h2>
 <p><%= bonjour %></p>
 
-<h2>Message en majuscules :</h2>
+<h2>Uppercase message:</h2>
 <p><%= bonjourMajuscules %></p>
 
-<h2>Message avec la première lettre en majuscule :</h2>
+<h2>Capitalized first letter only:</h2>
 <p><%= bonjourCapitalise %></p>
 
 </body>
