@@ -3,60 +3,103 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Tableau d'entiers - Menu interactif</title>
+    <title>Tableau Interactif - Dark Theme</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f1f1f1;
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #0d0d0d;
+            color: #f0f0f0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
             padding: 40px;
-            text-align: center;
         }
+
+        h1 {
+            color: #ffffff;
+            font-size: 2.5em;
+            text-shadow: 0 0 8px #00ffff;
+            margin-bottom: 30px;
+        }
+
         form {
-            margin: 20px auto;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 30px;
         }
-        input[type="number"] {
-            padding: 8px;
-            width: 80px;
-            border-radius: 4px;
-            border: 1px solid #ccc;
-        }
-        input[type="submit"] {
-            padding: 10px 15px;
-            margin: 8px;
+
+        input[type="text"] {
+            padding: 12px;
+            width: 200px;
+            font-size: 16px;
             border: none;
-            background-color: #007BFF;
-            color: white;
-            border-radius: 5px;
+            border-radius: 6px;
+            background-color: #1a1a1a;
+            color: #fff;
+            outline: none;
+            box-shadow: 0 0 6px #555;
+        }
+
+        input[type="submit"] {
+            padding: 12px 18px;
+            font-size: 16px;
+            background: linear-gradient(90deg, #00ffff, #8a2be2);
+            color: #0d0d0d;
+            font-weight: bold;
+            border: none;
+            border-radius: 6px;
             cursor: pointer;
+            transition: 0.3s ease;
+            box-shadow: 0 0 8px #00ffff;
         }
+
         input[type="submit"]:hover {
-            background-color: #0056b3;
+            box-shadow: 0 0 12px #00ffff;
+            transform: scale(1.05);
         }
+
         .message {
             font-weight: bold;
-            color: #333;
-            margin-top: 20px;
+            margin: 20px 0;
+            color: #00ffff;
+            text-align: center;
         }
-        .output {
-            margin-top: 20px;
-            padding: 15px;
-            background-color: white;
+
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            gap: 12px;
+            background-color: #1a1a1a;
+            padding: 20px;
             border-radius: 10px;
-            width: 50%;
-            margin-left: auto;
-            margin-right: auto;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            width: 80%;
+            max-width: 600px;
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.2);
+        }
+
+        .grid-item {
+            background-color: #262626;
+            border: 1px solid #444;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            color: #fff;
+            font-size: 16px;
+            box-shadow: 0 0 6px rgba(138, 43, 226, 0.4);
         }
     </style>
 </head>
 <body>
 
-<h1>Gestion du tableau d'entiers (max 10)</h1>
+<h1>Interactive Word/Number Table</h1>
 
 <%
-    ArrayList<Integer> tableau = (ArrayList<Integer>) session.getAttribute("tableau");
+    ArrayList<String> tableau = (ArrayList<String>) session.getAttribute("tableau");
     if (tableau == null) {
-        tableau = new ArrayList<Integer>();
+        tableau = new ArrayList<String>();
         session.setAttribute("tableau", tableau);
     }
 
@@ -66,46 +109,46 @@
     if (action != null) {
         switch (action) {
             case "ajouter":
-                try {
-                    int valeur = Integer.parseInt(request.getParameter("valeur"));
+                String valeur = request.getParameter("valeur");
+                if (valeur != null && !valeur.trim().isEmpty()) {
                     if (tableau.size() < 10) {
-                        tableau.add(valeur);
-                        message = "✅ Valeur ajoutée avec succès.";
+                        tableau.add(valeur.trim());
+                        message = "✅ Value added successfully.";
                     } else {
-                        message = "⚠️ Tableau plein. Maximum de 10 éléments.";
+                        message = "⚠️ The table is full (max 10 items).";
                     }
-                } catch (Exception e) {
-                    message = "❌ Veuillez entrer une valeur entière valide.";
+                } else {
+                    message = "❌ Please enter a valid word or number.";
                 }
                 break;
 
             case "supprimer":
                 if (!tableau.isEmpty()) {
                     tableau.remove(tableau.size() - 1);
-                    message = "🗑️ Dernière valeur supprimée.";
+                    message = "🗑️ Last value removed.";
                 } else {
-                    message = "⚠️ Le tableau est déjà vide.";
+                    message = "⚠️ The table is already empty.";
                 }
                 break;
 
             case "afficher":
                 if (tableau.isEmpty()) {
-                    message = "📭 Le tableau est vide.";
+                    message = "📭 The table is empty.";
                 } else {
-                    message = "📋 Contenu actuel du tableau affiché ci-dessous.";
+                    message = "📋 Displaying current contents below.";
                 }
                 break;
 
             case "vider":
                 tableau.clear();
-                message = "🧹 Tableau vidé.";
+                message = "🧹 Table cleared.";
                 break;
         }
     }
 %>
 
 <form method="post">
-    <input type="number" name="valeur" placeholder="Valeur">
+    <input type="text" name="valeur" placeholder="Enter value...">
     <input type="submit" name="action" value="ajouter">
     <input type="submit" name="action" value="supprimer">
     <input type="submit" name="action" value="afficher">
@@ -115,11 +158,13 @@
 <div class="message"><%= message %></div>
 
 <%
-    if (action != null && action.equals("afficher") && !tableau.isEmpty()) {
+    if ("afficher".equals(action) && !tableau.isEmpty()) {
 %>
-    <div class="output">
+    <div class="grid-container">
         <% for (int i = 0; i < tableau.size(); i++) { %>
-            Élément <%= i + 1 %> : <%= tableau.get(i) %><br>
+            <div class="grid-item">
+                <%= tableau.get(i) %>
+            </div>
         <% } %>
     </div>
 <%
@@ -128,4 +173,3 @@
 
 </body>
 </html>
-
